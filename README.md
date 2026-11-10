@@ -72,15 +72,9 @@ How each view was built, with the DAX behind it: [docs/walkthrough.md](docs/walk
 Star-style model with two fact tables, `fact_actuals_estimates` and `fact_forecast_monthly`, filtered by shared dimensions.
 
 ```
-                 dim_customer      dim_product      dim_date
-                      |                 |               |
-         +------------+--------+--------+-------+-------+
-         |                     |                |
- fact_actuals_estimates  fact_forecast_monthly  post_invoice_deductions
+[![Data model in Power BI](images/09_data_model.png)](images/09_data_model.png)
 
- dim_customer -> dim_market -> sub_zone
- dim_product  -> category
- dim_date     -> fiscal_year
+*Model view in Power BI Desktop. Click to open full size.*
 ```
 
 | Lookup table | Linked to | Used for |
