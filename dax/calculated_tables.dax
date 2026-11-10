@@ -1,0 +1,17 @@
+// ============================================================
+// Calculated tables
+// Business Insight 360 | Power BI
+// ============================================================
+
+// One row per fiscal year, used for the year slicer and for
+// market share comparisons with the previous year.
+fiscal_year =
+ALLNOBLANKROW ( dim_date[fiscal_year] )
+
+// Other supporting tables built with Enter Data or field parameters:
+// - 'P & L Rows'     : the 17 line items of the P&L statement, with a sort order
+// - 'P & L Columns'  : column headers for the P&L (selected year, BM, Chg, Chg %)
+// - 'Set BM'         : benchmark switch, 1 = last year, 2 = target
+// - 'Target Gap Tolerance' : what-if parameter for the Gross Margin % variance slider
+// - Field parameters for the Region / Category and Market / Product switches,
+//   and for the Product / Customer and Division / Channel toggles

@@ -1,0 +1,142 @@
+// ============================================================
+// Display measures: KPI labels, dynamic titles and colours
+// Business Insight 360 | Power BI
+// ============================================================
+
+
+// ------------------------------------------------------------
+// KPI card labels
+// Builds text such as "BM: 111.37M | 140.61% ▲" under each KPI.
+// Values over 1 billion are shown in Bn.
+// ------------------------------------------------------------
+
+Callout Lable Text NS$ =
+SWITCH (
+    TRUE (),
+    [Δ NS $] = BLANK (), "TARGET NOT AVAILABLE",
+    [Δ NS $] > 0 && [NS BM $] < 1000000000, "BM: " & ROUND ( [NS BM $] / 1000000, 2 ) & "M" & " | " & ROUND ( [Δ NS $] * 100, 2 ) & "%" & "  ▲",
+    [Δ NS $] > 0 && [NS BM $] > 1000000000, "BM: " & ROUND ( [NS BM $] / 1000000000, 2 ) & "Bn" & " | " & ROUND ( [Δ NS $] * 100, 2 ) & "%" & "  ▲",
+    [Δ NS $] < 0 && [NS BM $] < 1000000000, "BM: " & ROUND ( [NS BM $] / 1000000, 2 ) & "M" & " | " & ROUND ( [Δ NS $] * 100, 2 ) & "%" & "  ▼",
+    [Δ NS $] < 0 && [NS BM $] > 1000000000, "BM: " & ROUND ( [NS BM $] / 1000000000, 2 ) & "Bn" & " | " & ROUND ( [Δ NS $] * 100, 2 ) & "%" & "  ▼"
+)
+
+Callout Lable Text GM% =
+SWITCH (
+    TRUE (),
+    [Δ GM %] = BLANK (), "TARGET NOT AVAILABLE",
+    [Δ GM %] > 0, "BM: " & ROUND ( [GM % BM] * 100, 2 ) & "%" & " | " & ROUND ( [Δ GM %] * 100, 2 ) & "%" & "  ▲",
+    [Δ GM %] < 0, "BM: " & ROUND ( [GM % BM] * 100, 2 ) & "%" & " | " & ROUND ( [Δ GM %] * 100, 2 ) & "%" & "  ▼"
+)
+
+Callout Lable Text NP% =
+SWITCH (
+    TRUE (),
+    [Δ NP %] = BLANK (), "TARGET NOT AVAILABLE",
+    [Δ NP %] > 0, "BM: " & ROUND ( [NP % BM] * 100, 2 ) & "%" & " | " & ROUND ( [Δ NP %] * 100, 2 ) & "%" & "  ▲",
+    [Δ NP %] < 0, "BM: " & ROUND ( [NP % BM] * 100, 2 ) & "%" & " | " & ROUND ( [Δ NP %] * 100, 2 ) & "%" & "  ▼"
+)
+
+Callout Lable Text FCA % =
+SWITCH (
+    TRUE (),
+    [Δ FCA %] = BLANK (), "TARGET NOT AVAILABLE",
+    [Δ FCA %] > 0, "LY: " & ROUND ( [Forecast Accuracy % LY] * 100, 2 ) & "%" & " | " & ROUND ( [Δ FCA %] * 100, 2 ) & "%" & "  ▲",
+    [Δ FCA %] < 0, "LY: " & ROUND ( [Forecast Accuracy % LY] * 100, 2 ) & "%" & " | " & ROUND ( [Δ FCA %] * 100, 2 ) & "%" & "  ▼"
+)
+
+// For errors, a rise is bad, so the arrows are reversed
+Callout Lable Text NET Error =
+SWITCH (
+    TRUE (),
+    [Δ Net Error] = BLANK (), "TARGET NOT AVAILABLE",
+    [Δ Net Error] > 0 && [Net Error LY] < 1000000000, "LY: " & ROUND ( [Net Error LY] / 1000000, 2 ) & "M" & " | " & ROUND ( [Δ Net Error] * 100, 2 ) & "%" & "  ▼",
+    [Δ Net Error] > 0 && [Net Error LY] > 1000000000, "LY: " & ROUND ( [Net Error LY] / 1000000000, 2 ) & "Bn" & " | " & ROUND ( [Δ Net Error] * 100, 2 ) & "%" & "  ▼",
+    [Δ Net Error] < 0 && [Net Error LY] < 1000000000, "LY: " & ROUND ( [Net Error LY] / 1000000, 2 ) & "M" & " | " & ROUND ( [Δ Net Error] * 100, 2 ) & "%" & "  ▲",
+    [Δ Net Error] < 0 && [Net Error LY] > 1000000000, "LY: " & ROUND ( [Net Error LY] / 1000000000, 2 ) & "Bn" & " | " & ROUND ( [Δ Net Error] * 100, 2 ) & "%" & "  ▲"
+)
+
+Callout Lable Text ABS Error =
+SWITCH (
+    TRUE (),
+    [Δ ABS Error] = BLANK (), "TARGET NOT AVAILABLE",
+    [Δ ABS Error] > 0 && [ABS Error LY] < 1000000000, "LY: " & ROUND ( [ABS Error LY] / 1000000, 2 ) & "M" & " | " & ROUND ( [Δ ABS Error] * 100, 2 ) & "%" & "  ▼",
+    [Δ ABS Error] > 0 && [ABS Error LY] > 1000000000, "LY: " & ROUND ( [ABS Error LY] / 1000000000, 2 ) & "Bn" & " | " & ROUND ( [Δ ABS Error] * 100, 2 ) & "%" & "  ▼",
+    [Δ ABS Error] < 0 && [ABS Error LY] < 1000000000, "LY: " & ROUND ( [ABS Error LY] / 1000000, 2 ) & "M" & " | " & ROUND ( [Δ ABS Error] * 100, 2 ) & "%" & "  ▲",
+    [Δ ABS Error] < 0 && [ABS Error LY] > 1000000000, "LY: " & ROUND ( [ABS Error LY] / 1000000000, 2 ) & "Bn" & " | " & ROUND ( [Δ ABS Error] * 100, 2 ) & "%" & "  ▲"
+)
+
+Callout Lable Text AtiliQ MS % =
+SWITCH (
+    TRUE (),
+    [Δ MS %] = BLANK (), "TARGET NOT AVAILABLE",
+    [Δ MS %] > 0, "LY: " & ROUND ( [AtliQ MS % LY] * 100, 2 ) & "%" & " | " & ROUND ( [Δ MS %] * 100, 2 ) & "%" & "  ▲",
+    [Δ MS %] < 0, "LY: " & ROUND ( [AtliQ MS % LY] * 100, 2 ) & "%" & " | " & ROUND ( [Δ MS %] * 100, 2 ) & "%" & "  ▼"
+)
+
+// Shown when the selected filters have no benchmark data
+BM Message =
+IF (
+    [NS BM $] = BLANK () || [GM % BM] = BLANK () || [NP % BM] = BLANK (),
+    "BM Target(s) is not available for the selected filters",
+    ""
+)
+
+// "Aug 25" style footer showing how far actual sales go
+Last Sales Month Footer = FORMAT ( MAX ( LastSalesMonth[LastSalesMonth] ), "MMM YY" )
+
+
+// ------------------------------------------------------------
+// Dynamic titles
+// ------------------------------------------------------------
+
+Selected P & L Row =
+IF ( HASONEVALUE ( 'P & L Rows'[Description] ), SELECTEDVALUE ( 'P & L Rows'[Description] ), "Net Sales" )
+
+Performance Visual Title = [Selected P & L Row] & " Performace Over Time"
+
+Top / Bottom N title = "Top / Bottom Products & Customers by " & [Selected P & L Row]
+
+Title_SALES_List Product vs Customer =
+SWITCH (
+    SELECTEDVALUE ( 'Param 003: Sales page Product - Customer'[Param 003: Sales page Product - Store Order] ),
+    0, "Product Performance",
+    1, "Customer Performance",
+    "Unknown"
+)
+
+Title_MRKT_Segment Performance _ GMvsNP =
+SWITCH (
+    SELECTEDVALUE ( 'PARAM MRKT 01: Performance Matrix Y Axis'[PARAM MRKT 01: Performance Matrix Y Axis Order] ),
+    0, "Segment Performance - By GM %",
+    1, "Segment Performance - By Net Profit %",
+    "Unknown"
+)
+
+Title_MRKT_Market Performance _ GMvsNP =
+SWITCH (
+    SELECTEDVALUE ( 'PARAM MRKT 01: Performance Matrix Y Axis'[PARAM MRKT 01: Performance Matrix Y Axis Order] ),
+    0, "Market Performance - By Gross Margin %",
+    1, "Market Performance - By Net Profit %",
+    "Unknown"
+)
+
+
+// ------------------------------------------------------------
+// Conditional formatting colours
+// Grey when better than benchmark, red when worse.
+// ------------------------------------------------------------
+
+COLOR Accent Bar NS$ = IF ( [Δ NS $] > 0, "#BFBFBF", "#DA3D4D" )
+
+COLOR Accent Bar GM% = IF ( [Δ GM %] > 0, "#BFBFBF", "#DA3D4D" )
+
+COLOR Accent Bar NP% = IF ( [Δ NP %] > 0, "#BFBFBF", "#DA3D4D" )
+
+COLOR Accent Bar FCA% = IF ( [Δ FCA %] > 0, "#BFBFBF", "#DA3D4D" )
+
+COLOR Accent Bar Net Error = IF ( [Δ Net Error] < 0, "#BFBFBF", "#DA3D4D" )
+
+COLOR Accent Bar Abs Error = IF ( [Δ ABS Error] < 0, "#BFBFBF", "#DA3D4D" )
+
+// Purple for under-forecast months, orange for over-forecast months
+Color Net Error Bar = IF ( [Net Error %] < 0, "#8A6CBE", "#EA8C48" )
