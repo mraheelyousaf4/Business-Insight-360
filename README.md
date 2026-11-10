@@ -71,11 +71,11 @@ How each view was built, with the DAX behind it: [docs/walkthrough.md](docs/walk
 
 Star-style model with two fact tables, `fact_actuals_estimates` and `fact_forecast_monthly`, filtered by shared dimensions.
 
-```
+
 [![Data model in Power BI](images/09_data_model.png)](images/09_data_model.png)
 
 *Model view in Power BI Desktop. Click to open full size.*
-```
+
 
 | Lookup table | Linked to | Used for |
 |---|---|---|
